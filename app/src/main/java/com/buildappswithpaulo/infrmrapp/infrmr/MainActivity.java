@@ -1,9 +1,12 @@
 package com.buildappswithpaulo.infrmrapp.infrmr;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.buildappswithpaulo.infrmrapp.infrmr.data.Article;
 import com.buildappswithpaulo.infrmrapp.infrmr.data.ArticleAdapter;
@@ -24,12 +27,23 @@ public class MainActivity extends AppCompatActivity {
 
         new ArticleData().getNewsList(new ArticleListAsyncResponse() {
             @Override
-            public void processFinish(ArrayList<Article> articles) {
+            public void processFinish(final ArrayList<Article> articles) {
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 articleAdapter = new ArticleAdapter(articles, getApplicationContext());
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerView.setAdapter(articleAdapter);
+
+                articleAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Article article = articles.get(position);
+
+                        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                        intent.putExtra("url", article.getNewsUrl());
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

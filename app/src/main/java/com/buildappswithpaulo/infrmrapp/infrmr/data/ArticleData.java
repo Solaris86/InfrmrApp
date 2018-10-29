@@ -17,7 +17,7 @@ public class ArticleData {
     private ArrayList<Article> articles = new ArrayList<>();
 
     public void getNewsList(final ArticleListAsyncResponse callback) {
-        String url = "https://newsapi.org/v2/top-headlines?sources=the-next-web&apiKey=c9ac2b7374144becab34b6a729e87f65";
+        String url = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=c9ac2b7374144becab34b6a729e87f65";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override

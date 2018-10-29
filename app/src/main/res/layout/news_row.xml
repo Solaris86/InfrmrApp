@@ -48,6 +48,7 @@
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:scaleType="fitCenter"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/fourthcourse"
                 tools:srcCompat="@drawable/fourthcourse" />
             
