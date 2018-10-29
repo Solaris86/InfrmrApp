@@ -1,11 +1,8 @@
 package com.buildappswithpaulo.infrmrapp.infrmr.data;
 
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.buildappswithpaulo.infrmrapp.infrmr.controller.AppController;
 
@@ -19,7 +16,7 @@ public class ArticleData {
 
     private ArrayList<Article> articles = new ArrayList<>();
 
-    public void getNewsList() {
+    public void getNewsList(final ArticleListAsyncResponse callback) {
         String url = "https://newsapi.org/v2/top-headlines?sources=the-next-web&apiKey=c9ac2b7374144becab34b6a729e87f65";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
@@ -40,7 +37,11 @@ public class ArticleData {
 
                         articles.add(article);
                     }
-                    Log.v("Articles Object", articles.toString());
+
+                    if (callback != null) {
+                        callback.processFinish(articles);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
